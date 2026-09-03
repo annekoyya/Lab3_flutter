@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:l3/home_page.dart'; // Make sure this matches your homepage file name
-
+import 'package:l3/home_page.dart'; 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -22,14 +21,13 @@ class _LoginPageState extends State<LoginPage> {
     final String enteredUsername = _usernameController.text.trim();
     final String enteredPassword = _passwordController.text;
 
-    // Conditional statement to check if the entered username and password match the correct
     if (enteredUsername == correctUsername && enteredPassword == correctPassword) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage(username: enteredUsername)),
       );
     } else {
-      // If the credentials are incorrect, display an error message
+
       setState(() {
         errorMessage = 'Invalid username or password';
       });
