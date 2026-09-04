@@ -44,12 +44,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+
+
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Profile Image and Name
+
+
               Center(
                 child: Column(
                   children: [
@@ -79,7 +83,6 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 30),
               
-              // Main Info Card
               Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
@@ -91,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       _buildInfoBox(Icons.person, 'Username', widget.username),
                       const SizedBox(height: 12),
-                      _buildInfoBox(Icons.email, 'Email', 'annika.gmail.com'),
+                      _buildInfoBox(Icons.email, 'Email', 'annika@gmail.com'),
                       const SizedBox(height: 12),
                       _buildInfoBox(Icons.school, 'Course', 'BSCS'),
                     ],
@@ -101,7 +104,6 @@ class _HomePageState extends State<HomePage> {
               
               const SizedBox(height: 16),
               
-              // Toggle Button for Additional Info
               ElevatedButton.icon(
                 onPressed: () {
                   setState(() {
@@ -176,7 +178,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Settings',
           ),
         ],
-        selectedItemColor: const Color.fromRGBO(232, 255, 138, 1),
+        selectedItemColor: const Color.fromARGB(255, 122, 198, 255),
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
       ),
