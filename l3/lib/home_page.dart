@@ -1,4 +1,8 @@
+// home_page.dart
 import 'package:flutter/material.dart';
+import 'package:l3/login.dart';
+import 'package:l3/profile.dart';
+import 'package:l3/social_media/social_media.dart';
 
 class HomePage extends StatefulWidget {
   final String username;
@@ -14,19 +18,136 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
+  
+  final List<String> pageTitles = [
+    "Home",
+    "Profile",
+    "Social",
+    "Settings",
+  ];
 
+  void logout() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+
+  // Simple Home page
+  Widget buildHomePage() {
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.home,
+            size: 100,
+            color: Colors.grey,
+          ),
+          SizedBox(height: 20),
+          Text(
+            'Home Page',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Welcome to the app!',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Settings page
+  Widget buildSettingsPage() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.settings,
+            size: 100,
+            color: Colors.grey,
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'Settings Page',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            child: ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Account'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {},
+            ),
+          ),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            child: ListTile(
+              leading: const Icon(Icons.notifications),
+              title: const Text('Notifications'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {},
+            ),
+          ),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            child: ListTile(
+              leading: const Icon(Icons.color_lens),
+              title: const Text('Theme'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {},
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton.icon(
+            onPressed: logout,
+            icon: const Icon(Icons.logout),
+            label: const Text('Logout'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              minimumSize: const Size(200, 50),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Get the selected page with animation
   Widget getSelectedPage() {
-    switch (selectedIndex) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      switchInCurve: Curves.easeInOut,
+      switchOutCurve: Curves.easeInOut,
+      child: Container(
+        key: ValueKey(selectedIndex),
+        child: _buildPage(selectedIndex),
+      ),
+    );
+  }
+
+  // Build the page based on index
+  Widget _buildPage(int index) {
+    switch (index) {
       case 0:
-        return const Center(child: Text('Home Page'));
+        return buildHomePage();
       case 1:
-        return Center(child: Text('Profile: ${widget.username}'));
+        return ProfilePage(username: widget.username);
       case 2:
-        return const Center(child: Text('Social Media'));
+        return SocialMediaPage(userName: widget.username);
       case 3:
-        return const Center(child: Text('Settings'));
+        return buildSettingsPage();
       default:
-        return const Center(child: Text('Home Page'));
+        return buildHomePage();
     }
   }
 
@@ -34,13 +155,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My App'),
+        title: Text(pageTitles[selectedIndex]),
+        backgroundColor: const Color.fromARGB(255, 122, 198, 255),
+        actions: [
+          IconButton(
+            onPressed: logout,
+            icon: const Icon(Icons.logout),
+            tooltip: "Logout",
+          ),
+        ],
       ),
       body: getSelectedPage(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
-        selectedItemColor: Colors.green,
-        onTap: (int index) {
+        type: BottomNavigationBarType.fixed,
+        elevation: 8,
+        onTap: (index) {
           setState(() {
             selectedIndex = index;
           });
@@ -63,6 +193,12 @@ class _HomePageState extends State<HomePage> {
             label: 'Settings',
           ),
         ],
+        selectedItemColor: const Color.fromARGB(255, 122, 198, 255),
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

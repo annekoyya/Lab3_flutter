@@ -17,12 +17,12 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
     const Post(
       userName: 'John Doe',
       caption: 'Enjoying the sunny weather!',
-      imageUrl: 'https://example.com/image1.jpg',
+      imageUrl: 'images/pic1.jpeg',
     ),
     const Post(
       userName: 'Jane Smith',
       caption: 'Had a great time at the concert!',
-      imageUrl: 'https://example.com/image2.jpg',
+      imageUrl: 'images/pic2.jpeg',
     ),
   ];
 
