@@ -4,42 +4,39 @@ import 'package:l3/social_media/post.dart';
 class CreatePostSheet extends StatefulWidget {
   final String userName;
 
-
   const CreatePostSheet({
     required this.userName,
     super.key});
 
   @override
-  State<CreatePostSheet> createState() => _CreatePostSheetState ();
+  State<CreatePostSheet> createState() => _CreatePostSheetState();
 }
 
 class _CreatePostSheetState extends State<CreatePostSheet> {
   final TextEditingController _captionController = TextEditingController();
   final TextEditingController _imageController = TextEditingController();
 
-
   void submitPost() {
     final String caption = _captionController.text.trim();
     final String imageUrl = _imageController.text.trim();
 
-    if (caption.isNotEmpty || imageUrl.isNotEmpty) {
+    // FIX: Check if fields are EMPTY, not if they're NOT empty
+    if (caption.isEmpty || imageUrl.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Complete both fields before submitting.  ')),
+        const SnackBar(content: Text('Please complete both fields before submitting.')),
       );
       return;
     }
-
 
     final Post newPost = Post(
       userName: widget.userName,
       caption: caption,
       imageUrl: imageUrl,
     );
-  Navigator.pop(context, newPost);
-    
+    Navigator.pop(context, newPost);
   }
-  @override
 
+  @override
   void dispose() {
     _captionController.dispose();
     _imageController.dispose();
@@ -47,15 +44,14 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left:20,
-        right:20,
-        top:20,
+        left: 20,
+        right: 20,
+        top: 20,
         bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-    ),
+      ),
       child: Column(
         children: [
           const Text('Create Post', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -65,7 +61,7 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
             controller: _imageController,
             decoration: const InputDecoration(
               labelText: 'Image URL',
-              prefixIcon: Icon(Icons.text_fields),
+              prefixIcon: Icon(Icons.image), // Better icon for image
               border: OutlineInputBorder(),
             ),
           ),
@@ -86,8 +82,22 @@ class _CreatePostSheetState extends State<CreatePostSheet> {
             ),
           ),
 
-        ]
-      )
+          const SizedBox(height: 20),
+
+          ElevatedButton(
+            onPressed: submitPost,
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(double.infinity, 50),
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text('Post'),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -79,45 +79,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 20),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 40),
-            child: ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Account'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {},
-            ),
-          ),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 40),
-            child: ListTile(
-              leading: const Icon(Icons.notifications),
-              title: const Text('Notifications'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {},
-            ),
-          ),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 40),
-            child: ListTile(
-              leading: const Icon(Icons.color_lens),
-              title: const Text('Theme'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {},
-            ),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton.icon(
-            onPressed: logout,
-            icon: const Icon(Icons.logout),
-            label: const Text('Logout'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-              minimumSize: const Size(200, 50),
-            ),
-          ),
-        ],
+          ],
       ),
     );
   }

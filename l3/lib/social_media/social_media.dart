@@ -57,7 +57,7 @@ class _SocialMediaPageState extends State<SocialMediaPage> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: _createPost,
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 149, 76, 175),
         foregroundColor: Colors.white,
         tooltip: 'Create Post',
         child: const Icon(Icons.add),
